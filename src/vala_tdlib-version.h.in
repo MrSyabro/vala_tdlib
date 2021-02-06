@@ -1,0 +1,94 @@
+/* vala_tdlib-version.h.in
+ *
+ * Copyright 2021 MrSyabro
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#pragma once
+
+#if !defined(VALA_TDLIB_INSIDE) && !defined(VALA_TDLIB_COMPILATION)
+# error "Only <vala-tdlib.h> can be included directly."
+#endif
+
+/**
+ * SECTION:vala_tdlibversion
+ * @short_description: vala-tdlib version checking
+ *
+ * vala-tdlib provides macros to check the version of the library
+ * at compile-time
+ */
+
+/**
+ * VALA_TDLIB_MAJOR_VERSION:
+ *
+ * vala-tdlib major version component (e.g. 1 if %VALA_TDLIB_VERSION is 1.2.3)
+ */
+#define VALA_TDLIB_MAJOR_VERSION (@MAJOR_VERSION@)
+
+/**
+ * VALA_TDLIB_MINOR_VERSION:
+ *
+ * vala-tdlib minor version component (e.g. 2 if %VALA_TDLIB_VERSION is 1.2.3)
+ */
+#define VALA_TDLIB_MINOR_VERSION (@MINOR_VERSION@)
+
+/**
+ * VALA_TDLIB_MICRO_VERSION:
+ *
+ * vala-tdlib micro version component (e.g. 3 if %VALA_TDLIB_VERSION is 1.2.3)
+ */
+#define VALA_TDLIB_MICRO_VERSION (@MICRO_VERSION@)
+
+/**
+ * VALA_TDLIB_VERSION
+ *
+ * vala-tdlib version.
+ */
+#define VALA_TDLIB_VERSION (@VERSION@)
+
+/**
+ * VALA_TDLIB_VERSION_S:
+ *
+ * vala-tdlib version, encoded as a string, useful for printing and
+ * concatenation.
+ */
+#define VALA_TDLIB_VERSION_S "@VERSION@"
+
+#define VALA_TDLIB_ENCODE_VERSION(major,minor,micro) \
+        ((major) << 24 | (minor) << 16 | (micro) << 8)
+
+/**
+ * VALA_TDLIB_VERSION_HEX:
+ *
+ * vala-tdlib version, encoded as an hexadecimal number, useful for
+ * integer comparisons.
+ */
+#define VALA_TDLIB_VERSION_HEX \
+        (VALA_TDLIB_ENCODE_VERSION (VALA_TDLIB_MAJOR_VERSION, VALA_TDLIB_MINOR_VERSION, VALA_TDLIB_MICRO_VERSION))
+
+/**
+ * VALA_TDLIB_CHECK_VERSION:
+ * @major: required major version
+ * @minor: required minor version
+ * @micro: required micro version
+ *
+ * Compile-time version checking. Evaluates to %TRUE if the version
+ * of vala-tdlib is greater than the required one.
+ */
+#define VALA_TDLIB_CHECK_VERSION(major,minor,micro)   \
+        (VALA_TDLIB_MAJOR_VERSION > (major) || \
+         (VALA_TDLIB_MAJOR_VERSION == (major) && VALA_TDLIB_MINOR_VERSION > (minor)) || \
+         (VALA_TDLIB_MAJOR_VERSION == (major) && VALA_TDLIB_MINOR_VERSION == (minor) && \
+          VALA_TDLIB_MICRO_VERSION >= (micro)))
